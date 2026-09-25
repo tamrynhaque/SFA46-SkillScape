@@ -3,28 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skills Matrix - Admin View</title>
+    <title>Admin Dashboard - SkillScape</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <h1>Skills Matrix - Admin Dashboard</h1>
+        <h1>SkillScape <span style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Admin</span></h1>
         <nav>
-            <a href="index.html">Consultant View</a>
-            <a href="admin.html">Admin View</a>
+            <a href="admin.html" class="nav-link">Dashboard</a>
+            <a href="users.html" class="nav-link">All Users</a>
+            <a href="login.html" class="nav-link">Logout</a>
         </nav>
     </header>
+    
     <main>
         <section id="global-heatmap">
             <h2>Global Skills Heatmap</h2>
-            <div id="heatmap-container"></div>
+            <div class="learning-path-box">
+                <p>Platform-wide Status Distribution:</p>
+                <ul>
+                    <li>Complete: 124 skills</li>
+                    <li>In Progress: 58 skills</li>
+                    <li>Not Started: 212 skills</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: #7f8c8d;">(This visualizes aggregate skill gap data across the entire organization)</p>
+            </div>
         </section>
 
-        <section id="user-management">
-            <h2>User Management & Targets Review</h2>
-            <div id="users-container"></div>
+        <section id="top-users">
+            <h2>Top Consultants (Skill Score Leaderboard)</h2>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Role Path</th>
+                        <th>Skills Mastered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="rank-badge" style="background:#f1c40f;">1</span></td>
+                        <td>Alice Smith</td>
+                        <td>Java Developer</td>
+                        <td>42</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge" style="background:#e67e22;">2</span></td>
+                        <td>Bob Johnson</td>
+                        <td>DevOps Engineer</td>
+                        <td>38</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge" style="background:#e74c3c;">3</span></td>
+                        <td>Charlie Davis</td>
+                        <td>Junior Manual Tester</td>
+                        <td>35</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <a href="users.html" class="btn-primary btn-block" style="margin-top: 1rem;">View All Web App Users</a>
         </section>
     </main>
-    <script src="js/admin.js"></script>
 </body>
 </html>

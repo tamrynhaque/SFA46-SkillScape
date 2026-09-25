@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles - SkillScape</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>SkillScape</h1>
+        <nav>
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="roles.html" class="nav-link">Roles</a>
+            <a href="settings.html" class="nav-link">Settings</a>
+            <a href="login.html" class="nav-link">Logout</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>Explore Tech Roles</h2>
+        <p>Select a role to see the skills and resources required to master it.</p>
+        
+        <div class="roles-grid">
+            <div class="role-card" onclick="alert('In a full build, this opens details & skills for Java Developer.')">
+                <span class="role-badge">Engineering</span>
+                <h3>Java Developer</h3>
+                <p>Master backend systems with Java and Spring Boot.</p>
+                <button class="btn-primary" style="margin-top: 1rem;">View Details</button>
+            </div>
+            
+            <div class="role-card" onclick="alert('In a full build, this opens details & skills for Junior Manual Tester.')">
+                <span class="role-badge">Quality Assurance</span>
+                <h3>Junior Manual Tester</h3>
+                <p>Learn testing fundamentals, Jira, and basic automation.</p>
+                <button class="btn-primary" style="margin-top: 1rem;">View Details</button>
+            </div>
+            
+            <div class="role-card" onclick="alert('In a full build, this opens details & skills for DevOps Engineer.')">
+                <span class="role-badge">Infrastructure</span>
+                <h3>DevOps Engineer</h3>
+                <p>Automate deployments with Docker, Kubernetes, and CI/CD.</p>
+                <button class="btn-primary" style="margin-top: 1rem;">View Details</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - SkillScape</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>SkillScape</h1>
+        <nav>
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="roles.html" class="nav-link">Roles</a>
+            <a href="settings.html" class="nav-link">Settings</a>
+            <a href="login.html" class="nav-link">Logout</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>Account Settings</h2>
+        
+        <div class="learning-path-box" style="border-left-color: #3498db; background: white; border: 1px solid #ddd;">
+            <form onsubmit="event.preventDefault(); alert('Settings saved!');">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" value="Jane Consultant" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" value="consultant@ten10.com" disabled style="background: #eee;">
+                </div>
+
+                <div class="form-group">
+                    <label for="notifications">Email Notifications</label>
+                    <select id="notifications" style="width: 100%; padding: 0.75rem;">
+                        <option value="all">All (Targets & Updates)</option>
+                        <option value="important">Important Only</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="margin-top: 1.5rem;">Save Changes</button>
+            </form>
+        </div>
+        
+        <div style="margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1rem;">
+            <h3 style="color: #e74c3c;">Danger Zone</h3>
+            <button style="background: #e74c3c; color: white; border: none; padding: 0.75rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold;" onclick="alert('Account deletion requested.')">Delete Account</button>
+        </div>
+    </main>
+</body>
+</html>

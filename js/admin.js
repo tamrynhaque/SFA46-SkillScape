@@ -1,47 +1,68 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const heatmapContainer = document.getElementById("heatmap-container");
     const usersContainer = document.getElementById("users-container");
 
-    // In a real application, this would fetch from a database (e.g., Supabase/Firebase)
-    // For this bare-bones prototype, we read from LocalStorage to simulate the global state
-    const savedProgress = JSON.parse(localStorage.getItem("userProgress")) || {};
-    const savedRole = localStorage.getItem("selectedRole") || "None selected";
+    heatmapContainer.innerHTML = "<p>Loading data...</p>";
+    usersContainer.innerHTML = "<p>Loading data...</p>";
 
-    // Global Heatmap Mock
+    // Fetch all profiles
+    const { data: profiles } = await supabase.from('profiles').select('*');
+    
+    // Fetch all progress with skill details joined
+    const { data: allProgress } = await supabase
+        .from('user_progress')
+        .select(`
+            user_email, 
+            status,
+            skills (skill_name)
+        `);
+
+    // Global Heatmap
     const heatmapData = {};
-    for (const [skillId, status] of Object.entries(savedProgress)) {
-        if (!heatmapData[status]) heatmapData[status] = 0;
-        heatmapData[status]++;
+    if (allProgress) {
+        allProgress.forEach(p => {
+            if (!heatmapData[p.status]) heatmapData[p.status] = 0;
+            heatmapData[p.status]++;
+        });
     }
 
-    if (Object.keys(savedProgress).length === 0) {
-        heatmapContainer.innerHTML = "<p>No data available yet. Consultants need to update their progress.</p>";
+    if (Object.keys(heatmapData).length === 0) {
+        heatmapContainer.innerHTML = "<p>No progress data available yet.</p>";
     } else {
         let heatmapHTML = `<p><strong>Platform-wide Skill Status Distribution:</strong></p><ul>`;
         for (const [status, count] of Object.entries(heatmapData)) {
             heatmapHTML += `<li>${status}: ${count} skill(s)</li>`;
         }
-        heatmapHTML += `</ul><p><em>(In a full build, this would aggregate data from all users in the database)</em></p>`;
+        heatmapHTML += `</ul>`;
         heatmapContainer.innerHTML = heatmapHTML;
     }
 
-    // User Management & Target Review Mock
-    let userHTML = `
-        <div class="skill-card">
-            <h3>Consultant 1 (Local Demo User)</h3>
-            <p><strong>Selected Role:</strong> ${savedRole}</p>
-            <h4>Current Progress:</h4>
-            <ul>
-    `;
-    
-    if (Object.keys(savedProgress).length === 0) {
-        userHTML += `<li>No progress recorded.</li>`;
+    // User Management
+    if (!profiles || profiles.length === 0) {
+        usersContainer.innerHTML = "<p>No users registered yet.</p>";
     } else {
-        for (const [skillId, status] of Object.entries(savedProgress)) {
-            userHTML += `<li>Skill ID ${skillId}: <strong>${status}</strong></li>`;
-        }
+        let userHTML = '';
+        profiles.forEach(profile => {
+            userHTML += `
+                <div class="skill-card">
+                    <h3>${profile.full_name}</h3>
+                    <p><strong>Email:</strong> ${profile.email}</p>
+                    <p><strong>Role ID:</strong> ${profile.role_id || "Not selected"}</p>
+                    <h4>Current Progress:</h4>
+                    <ul>
+            `;
+            
+            const userSkills = allProgress ? allProgress.filter(p => p.user_email === profile.email) : [];
+            if (userSkills.length === 0) {
+                userHTML += `<li>No progress recorded.</li>`;
+            } else {
+                userSkills.forEach(us => {
+                    const skillName = (us.skills && us.skills.skill_name) ? us.skills.skill_name : "Unknown Skill";
+                    userHTML += `<li>${skillName}: <strong>${us.status}</strong></li>`;
+                });
+            }
+            userHTML += `</ul></div>`;
+        });
+        usersContainer.innerHTML = userHTML;
     }
-    
-    userHTML += `</ul></div>`;
-    usersContainer.innerHTML = userHTML;
 });
