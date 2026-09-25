@@ -16,33 +16,20 @@
             <a href="login.html" class="nav-link">Logout</a>
         </nav>
     </header>
-    
+
     <main>
-        <h2>Explore Tech Roles</h2>
-        <p>Select a role to see the skills and resources required to master it.</p>
-        
-        <div class="roles-grid">
-            <div class="role-card" onclick="alert('In a full build, this opens details & skills for Java Developer.')">
-                <span class="role-badge">Engineering</span>
-                <h3>Java Developer</h3>
-                <p>Master backend systems with Java and Spring Boot.</p>
-                <button class="btn-primary" style="margin-top: 1rem;">View Details</button>
+        <section>
+            <h2>Explore Tech Roles</h2>
+            <p class="muted">Select a role to see its Level 1–3 skills, track your progress and set SMART targets.</p>
+            <div id="roles-grid" class="roles-grid">
+                <p class="muted">Loading roles...</p>
             </div>
-            
-            <div class="role-card" onclick="alert('In a full build, this opens details & skills for Junior Manual Tester.')">
-                <span class="role-badge">Quality Assurance</span>
-                <h3>Junior Manual Tester</h3>
-                <p>Learn testing fundamentals, Jira, and basic automation.</p>
-                <button class="btn-primary" style="margin-top: 1rem;">View Details</button>
-            </div>
-            
-            <div class="role-card" onclick="alert('In a full build, this opens details & skills for DevOps Engineer.')">
-                <span class="role-badge">Infrastructure</span>
-                <h3>DevOps Engineer</h3>
-                <p>Automate deployments with Docker, Kubernetes, and CI/CD.</p>
-                <button class="btn-primary" style="margin-top: 1rem;">View Details</button>
-            </div>
-        </div>
+        </section>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/db.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/roles.js"></script>
 </body>
 </html>

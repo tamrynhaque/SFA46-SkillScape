@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Skills - SkillScape</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>SkillScape</h1>
+        <nav>
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="roles.html" class="nav-link">Roles</a>
+            <a href="settings.html" class="nav-link">Settings</a>
+            <a href="login.html" class="nav-link">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <a href="roles.html" class="back-link">&larr; All roles</a>
+
+        <div class="dashboard-header">
+            <div>
+                <h2 id="role-name">Loading...</h2>
+                <p id="role-summary">&nbsp;</p>
+            </div>
+            <button id="set-role-btn" class="btn-primary" hidden>Make this my role</button>
+        </div>
+
+        <section>
+            <h2>Skills Matrix</h2>
+            <div class="progress-header">
+                <span>Role completion</span>
+                <span id="progress-text" class="mono">0%</span>
+            </div>
+            <div class="progress-bar-bg"><div id="progress-fill" class="progress-bar-fill" style="width: 0%"></div></div>
+            <p class="muted small">Tick <strong>In progress</strong> when you start a skill and <strong>Complete</strong> when you've mastered it. Your progress saves automatically.</p>
+
+            <div id="matrix" class="matrix"></div>
+        </section>
+
+        <section>
+            <h2>SMART Targets for this Role</h2>
+            <p class="muted">Use <strong>Generate SMART goal</strong> on any skill you haven't completed to turn the gap into a plan.</p>
+            <div id="targets" class="targets-grid"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/db.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/smart.js"></script>
+    <script src="js/role-detail.js"></script>
+</body>
+</html>
