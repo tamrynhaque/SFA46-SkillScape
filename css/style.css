@@ -1,0 +1,17 @@
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
+header { background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+header h1 { margin: 0; font-size: 1.5rem; }
+nav a { color: #ecf0f1; margin-left: 1.5rem; text-decoration: none; font-weight: bold; }
+nav a:hover { color: #3498db; }
+main { padding: 2rem; max-width: 900px; margin: auto; }
+section { background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+h2 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 0.5rem; }
+select { padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+.skill-card { border: 1px solid #e1e8ed; padding: 1.5rem; margin-top: 1rem; border-radius: 6px; background: #fafafa; }
+.skill-card h3 { margin-top: 0; color: #2980b9; }
+.skill-card h4 { margin-top: 0; color: #e67e22; }
+.skill-level { font-weight: bold; color: #7f8c8d; font-size: 0.9rem; }
+.status-select { margin-left: 0.5rem; font-weight: bold; }
+.resource-link { display: inline-block; margin-top: 1rem; color: #fff; background: #3498db; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-size: 0.9rem; }
+.resource-link:hover { background: #2980b9; }
+ul { line-height: 1.6; }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Matrix - Consultant View</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Skills Matrix</h1>
+        <nav>
+            <a href="index.html">Consultant View</a>
+            <a href="admin.html">Admin View</a>
+        </nav>
+    </header>
+    <main>
+        <section id="role-selection">
+            <h2>Select Your Role</h2>
+            <select id="role-select">
+                <option value="">-- Choose a Role --</option>
+                <option value="junior_tester">Junior Manual Tester</option>
+                <option value="java_dev">Java Developer</option>
+            </select>
+        </section>
+
+        <section id="skills-matrix" style="display: none;">
+            <h2>Your Skills Matrix</h2>
+            <div id="skills-container"></div>
+        </section>
+        
+        <section id="smart-targets" style="display: none;">
+            <h2>SMART Targets</h2>
+            <div id="targets-container"></div>
+        </section>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>
