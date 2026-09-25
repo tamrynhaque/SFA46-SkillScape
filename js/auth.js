@@ -41,6 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
             const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                return;
+            }
             
             // Mock a successful registration
             localStorage.setItem("userEmail", email);
