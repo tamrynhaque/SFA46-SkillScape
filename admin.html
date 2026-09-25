@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - SkillScape</title>
+        <!-- Innovative Tech Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,73 +19,73 @@
     </header>
     
     <main>
-        <section id="global-heatmap" style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 0; margin-bottom: 2rem;">
+        <section id="global-heatmap" >
             <!-- Header -->
-            <div style="padding: 1.5rem; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+            <div style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
                 <h2 style="margin: 0; border: none; padding: 0;">Overall Skills Matrix Heatmap</h2>
-                <div style="display: flex; gap: 1rem; align-items: center; border: 1px solid #ddd; padding: 0.5rem; border-radius: 4px; background: #f8f9fa;">
+                <div style="display: flex; gap: 1rem; align-items: center; padding: 0.5rem; border-radius: 4px; background: rgba(0,0,0,0.3);">
                     <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: bold; cursor: pointer; font-size: 0.9rem;"><input type="radio" name="view_mode" checked> All Users</label>
                     <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;"><input type="radio" name="view_mode"> Filtered View</label>
                 </div>
             </div>
             
             <!-- Filters -->
-            <div style="padding: 1rem 1.5rem; background: #fafafa; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 1rem;">
-                <span style="font-weight: bold; color: #555; font-size: 0.9rem;">Filter by:</span>
-                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: #e9ecef; font-size: 0.9rem;"><option>User (Dropdown)</option></select>
-                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: #e9ecef; font-size: 0.9rem;"><option>Role (Dropdown)</option></select>
-                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: #e9ecef; font-size: 0.9rem;"><option>Skill Type (Dropdown)</option></select>
+            <div style="padding: 1rem 1.5rem; background: rgba(0,0,0,0.2); display: flex; align-items: center; gap: 1rem;">
+                <span style="font-weight: bold; color: var(--text-muted); font-size: 0.9rem;">Filter by:</span>
+                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: rgba(0,0,0,0.3); color: white; font-size: 0.9rem;"><option>User (Dropdown)</option></select>
+                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: rgba(0,0,0,0.3); color: white; font-size: 0.9rem;"><option>Role (Dropdown)</option></select>
+                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: rgba(0,0,0,0.3); color: white; font-size: 0.9rem;"><option>Skill Type (Dropdown)</option></select>
             </div>
             
             <!-- Table and Charts Area -->
             <div style="padding: 1.5rem; display: flex; gap: 1.5rem;">
                 <!-- Main Table -->
                 <div style="flex: 1; overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; text-align: center; border: 2px solid #333;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: center; ">
                         <thead>
                             <tr>
-                                <th style="text-align: left; padding: 1rem; border: 1px solid #333; background: #fff; width: 25%;">Skills</th>
-                                <th style="padding: 1rem; border: 1px solid #333; background: #fff;">&#9733; Easy</th>
-                                <th style="padding: 1rem; border: 1px solid #333; background: #fff;">&#9733;&#9733; Medium</th>
-                                <th style="padding: 1rem; border: 1px solid #333; background: #fff;">&#9733;&#9733;&#9733; Hardest</th>
+                                <th style="text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent; width: 25%;">Skills</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent;">&#9733; Easy</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent;">&#9733;&#9733; Medium</th>
+                                <th style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: transparent;">&#9733;&#9733;&#9733; Hardest</th>
                             </tr>
                         </thead>
-                        <tbody style="font-size: 1.2rem; color: #333;">
+                        <tbody style="font-size: 1.2rem; color: var(--text-main);">
                             <tr>
-                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Python Programming</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #a5d6a7;">88%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">42%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #ef5350;">15%</td>
+                                <td style="text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 500; font-size: 1rem; background: transparent;">Python Programming</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #a5d6a7;">88%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #ffcc80;">42%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #ef5350;">15%</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">SQL Queries</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #81c784;">92%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #a5d6a7;">78%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">35%</td>
+                                <td style="text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 500; font-size: 1rem; background: transparent;">SQL Queries</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #81c784;">92%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #a5d6a7;">78%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #ffcc80;">35%</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Cloud Infrastructure</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #ef5350;">22%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #fff59d;">55%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">40%</td>
+                                <td style="text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 500; font-size: 1rem; background: transparent;">Cloud Infrastructure</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #ef5350;">22%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #fff59d;">55%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #ffcc80;">40%</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Machine Learning</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">38%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">65%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #fff59d;">50%</td>
+                                <td style="text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 500; font-size: 1rem; background: transparent;">Machine Learning</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #ffcc80;">38%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #dce775;">65%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #fff59d;">50%</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Project Management</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">68%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #66bb6a;">85%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">60%</td>
+                                <td style="text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 500; font-size: 1rem; background: transparent;">Project Management</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #dce775;">68%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #66bb6a;">85%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #dce775;">60%</td>
                             </tr>
                             <tr>
-                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Data Analysis</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #a5d6a7;">75%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">45%</td>
-                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">62%</td>
+                                <td style="text-align: left; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: 500; font-size: 1rem; background: transparent;">Data Analysis</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #a5d6a7;">75%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #ffcc80;">45%</td>
+                                <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); background: #dce775;">62%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -92,7 +94,7 @@
                     <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
                         <span style="font-weight: bold;">Color Key:</span>
                         <div style="display: flex; flex-direction: column; align-items: center;">
-                            <div style="display: flex; border: 1px solid #333; height: 15px; width: 200px; border-radius: 4px; overflow: hidden;">
+                            <div style="display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); height: 15px; width: 200px; border-radius: 4px; overflow: hidden;">
                                 <div style="flex: 1; background: #66bb6a;"></div>
                                 <div style="flex: 1; background: #81c784;"></div>
                                 <div style="flex: 1; background: #a5d6a7;"></div>
@@ -173,29 +175,29 @@
 
         <!-- Specific User View -->
         <section id="specific-user-view" style="display: none; background: transparent; padding: 0; box-shadow: none; margin-top: 2rem;">
-            <div class="dashboard-header" style="background: #e2e8f0; padding: 1rem; border-radius: 8px 8px 0 0; border-bottom: none; margin-bottom: 0;">
+            <div class="dashboard-header" style="background: rgba(8, 145, 178, 0.1); padding: 1rem; border-radius: 8px 8px 0 0; border-bottom: none; margin-bottom: 0;">
                 <h2 style="margin: 0; border: none; padding: 0;">SPECIFIC USER VIEW: John Doe [Java Developer]</h2>
-                <div style="background: white; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid #ccc; font-size: 0.9rem;">&#128269; Search</div>
+                <div style="background: transparent; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid #ccc; font-size: 0.9rem;">&#128269; Search</div>
             </div>
             
-            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-top: none; padding: 1.5rem; border-radius: 0 0 8px 8px;">
+            <div style="background: rgba(15,23,42,0.6); border: 1px solid var(--card-border); border-top: none; padding: 1.5rem; border-radius: 0 0 8px 8px;">
                 <div class="specific-user-grid">
                     <!-- Left Column -->
                     <div>
                         <div class="user-panel">
-                            <h3 style="margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: #2c3e50;">CONSULTANT PROFILE & DASHBOARD SUMMARY</h3>
+                            <h3 style="margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; color: #fff;">CONSULTANT PROFILE & DASHBOARD SUMMARY</h3>
                             
                             <div class="user-profile-header">
                                 <div class="user-avatar">&#128100;</div>
                                 <div>
                                     <h3 style="margin: 0; font-size: 1.2rem;">John Doe</h3>
-                                    <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Current Role: Junior Java Developer</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Current Role: Junior Java Developer</p>
                                     <p style="margin: 0.25rem 0 0; font-weight: bold; font-size: 0.9rem;">Total Skills: 45 / Completed: 15</p>
                                 </div>
                             </div>
                             
-                            <div style="border-top: 1px solid #eee; padding-top: 1rem;">
-                                <h4 style="margin: 0 0 1rem; color: #34495e;">JAVA DEVELOPER</h4>
+                            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                                <h4 style="margin: 0 0 1rem; color: #fff;">JAVA DEVELOPER</h4>
                                 
                                 <div class="role-completion-bar">
                                     <label>Foundational <span>90%</span></label>
@@ -214,10 +216,10 @@
                         </div>
 
                         <div class="user-panel">
-                            <h3 style="margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: #2c3e50;">TOP SKILLS TO WORK ON</h3>
+                            <h3 style="margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; color: #fff;">TOP SKILLS TO WORK ON</h3>
                             <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.9rem;">
                                 <thead>
-                                    <tr style="text-align: left; color: #7f8c8d; border-bottom: 1px solid #ddd;">
+                                    <tr style="text-align: left; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.1);">
                                         <th style="padding: 0.5rem 0;">Importance</th>
                                         <th style="padding: 0.5rem 0;">Impact</th>
                                     </tr>
@@ -237,13 +239,13 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <p style="margin: 0; font-size: 0.8rem; color: #7f8c8d;">Prioritized by impact/relevance to current and potential roles.</p>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Prioritized by impact/relevance to current and potential roles.</p>
                         </div>
                     </div>
                     
                     <!-- Right Column -->
                     <div class="user-panel">
-                        <h3 style="margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: #2c3e50;">PERSONAL SKILLS HEATMAP [Current Role Skills]</h3>
+                        <h3 style="margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; color: #fff;">PERSONAL SKILLS HEATMAP [Current Role Skills]</h3>
                         <table class="heatmap-table">
                             <thead>
                                 <tr>
@@ -267,32 +269,32 @@
                                 <tr>
                                     <td>API Testing</td>
                                     <td><span class="icon-competent">&#10004;</span></td>
-                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
-                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                    <td style="background: rgba(231, 76, 60, 0.2);"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: rgba(241, 196, 15, 0.2);"><span class="icon-in-progress">&#9881;</span></td>
                                 </tr>
                                 <tr>
                                     <td>Hibernate</td>
                                     <td><span class="icon-competent">&#10004;</span></td>
-                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
-                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                    <td style="background: rgba(231, 76, 60, 0.2);"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: rgba(241, 196, 15, 0.2);"><span class="icon-in-progress">&#9881;</span></td>
                                 </tr>
                                 <tr>
                                     <td>Advanced SQL</td>
                                     <td><span class="icon-competent">&#10004;</span></td>
-                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
-                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                    <td style="background: rgba(231, 76, 60, 0.2);"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: rgba(241, 196, 15, 0.2);"><span class="icon-in-progress">&#9881;</span></td>
                                 </tr>
                                 <tr>
                                     <td>Git</td>
                                     <td><span class="icon-competent">&#10004;</span></td>
-                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
-                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                    <td style="background: rgba(231, 76, 60, 0.2);"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: rgba(241, 196, 15, 0.2);"><span class="icon-in-progress">&#9881;</span></td>
                                 </tr>
                                 <tr>
                                     <td>Python</td>
                                     <td><span class="icon-competent">&#10004;</span></td>
-                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
-                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                    <td style="background: rgba(231, 76, 60, 0.2);"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: rgba(241, 196, 15, 0.2);"><span class="icon-in-progress">&#9881;</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -309,4 +311,6 @@
     </main>
 </body>
 </html>
+
+
 
