@@ -5,18 +5,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const targetsSection = document.getElementById("smart-targets");
     const targetsContainer = document.getElementById("targets-container");
 
-    const userEmail = localStorage.getItem("userEmail");
-    if (!userEmail) {
+    const username = localStorage.getItem("username");
+    if (!username) {
         window.location.href = "login.html";
         return;
     }
 
-    // Update the dashboard header with the current email
+    // Update the dashboard header
     const emailDisplay = document.getElementById("user-display-email");
     const nameDisplay = document.getElementById("user-display-name");
-    if (emailDisplay) emailDisplay.textContent = userEmail;
+    if (emailDisplay) emailDisplay.textContent = username;
 
-    // Helper to generate UUIDs since the DB table 'users' requires it and doesn't auto-generate it
+    // Helper to generate UUIDs
     function generateUUID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Fetch roles for dropdown from Supabase (using 'name' column)
+    // Fetch roles for dropdown from Supabase
     const { data: roles } = await supabase.from('roles').select('*');
     if (roles) {
         roleSelect.innerHTML = '<option value="">-- Choose a Role --</option>';
@@ -37,10 +37,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Check if user already has a record in the 'users' table
-    let { data: profile } = await supabase.from('users').select('*').eq('email', userEmail).single();
+    let { data: profile } = await supabase.from('users').select('*').eq('username', username).single();
     
     if (profile) {
-        if (nameDisplay) nameDisplay.textContent = profile.full_name || profile.email.split('@')[0];
+        if (nameDisplay) nameDisplay.textContent = profile.full_name || profile.username;
         
         if (profile.role_id) {
             roleSelect.value = profile.role_id;
@@ -52,16 +52,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Create the user in the database since they don't exist yet
         const newUser = {
             id: generateUUID(),
-            email: userEmail,
+            username: username,
             full_name: userName || null,
             role_id: null,
-            is_admin: false
+            is_admin: false,
+            email: username + "@mock.com"
         };
         const { data: insertedUser } = await supabase.from('users').insert(newUser).select().single();
         if (insertedUser) {
             profile = insertedUser;
         } else {
-            profile = newUser; // Fallback so the app doesn't crash if insert fails
+            profile = newUser; // Fallback
+
         }
     }
 

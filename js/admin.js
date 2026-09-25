@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         profiles.forEach(profile => {
             userHTML += `
                 <div class="skill-card">
-                    <h3>${profile.full_name}</h3>
-                    <p><strong>Email:</strong> ${profile.email}</p>
+                    <h3>${profile.full_name || profile.username}</h3>
+                    <p><strong>Username:</strong> ${profile.username}</p>
                     <p><strong>Role ID:</strong> ${profile.role_id || "Not selected"}</p>
                     <h4>Current Progress:</h4>
                     <ul>

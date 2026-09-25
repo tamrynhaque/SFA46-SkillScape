@@ -2,13 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const registerForm = document.getElementById("register-form");
 
+    // Helper to generate UUIDs
+    function generateUUID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
     // --- REGISTRATION ---
     if (registerForm) {
         registerForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
             const name = document.getElementById("name") ? document.getElementById("name").value : "";
+            const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirm-password").value;
 
@@ -17,35 +24,49 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // 1. Create the user in Supabase Auth
-            const { data: authData, error: authError } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: { full_name: name }
-                }
-            });
+            const userId = generateUUID();
 
-            if (authError) {
-                alert("Registration failed: " + authError.message);
-                return;
-            }
-
-            // 2. Insert a matching row into the 'users' table
-            const userId = authData.user.id;
+            // Insert into the 'users' table directly
             const { error: dbError } = await supabase.from('users').insert({
                 id: userId,
-                email: email,
+                username: username,
+                password: password,
+                full_name: name,
                 role_id: null,
-                is_admin: false
+                is_admin: false,
+                email: username + "@mock.com" // fallback in case the DB still requires an email column
             });
 
             if (dbError) {
-                console.error("Could not create user profile:", dbError.message);
+                alert("Could not create user profile: " + dbError.message);
+                return;
             }
 
-            // 3. Save to localStorage and redirect
-            localStorage.setItem("userEmail", email);
+            // --- RANDOM SKILLS ASSIGNMENT ---
+            try {
+                const { data: roles } = await supabase.from('roles').select('id');
+                if (roles && roles.length > 0) {
+                    const randomRole = roles[Math.floor(Math.random() * roles.length)];
+                    await supabase.from('users').update({ role_id: randomRole.id }).eq('id', userId);
+                    
+                    const { data: roleSkills } = await supabase.from('role_skills').select('skill_id').eq('role_id', randomRole.id);
+                    if (roleSkills && roleSkills.length > 0) {
+                        const statuses = ["Not Started", "In Progress", "Complete"];
+                        const userSkillsToInsert = roleSkills.map(rs => ({
+                            user_id: userId,
+                            skill_id: rs.skill_id,
+                            status: statuses[Math.floor(Math.random() * statuses.length)]
+                        }));
+                        await supabase.from('user_skills').insert(userSkillsToInsert);
+                    }
+                }
+            } catch (err) {
+                console.error("Error randomly assigning skills:", err);
+            }
+            // --------------------------------
+
+            // Save to localStorage and redirect
+            localStorage.setItem("username", username);
             if (name) localStorage.setItem("userName", name);
             localStorage.setItem("userRole", "user");
 
@@ -58,25 +79,27 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginForm) {
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const email = document.getElementById("email").value;
+            const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
+            // Query database directly checking username and password
+            const { data: profile, error } = await supabase.from('users')
+                .select('*')
+                .eq('username', username)
+                .eq('password', password)
+                .single();
 
-            if (error) {
-                alert("Invalid email or password. Please try again.");
+            if (error || !profile) {
+                alert("Invalid username or password. Please try again.");
                 return;
             }
 
-            // Check if the user is an admin
-            const { data: profile } = await supabase.from('users').select('is_admin').eq('email', email).single();
+            localStorage.setItem("username", username);
+            if (profile.full_name) {
+                localStorage.setItem("userName", profile.full_name);
+            }
 
-            localStorage.setItem("userEmail", email);
-
-            if (profile && profile.is_admin) {
+            if (profile.is_admin) {
                 localStorage.setItem("userRole", "admin");
                 window.location.href = "admin.html";
             } else {
