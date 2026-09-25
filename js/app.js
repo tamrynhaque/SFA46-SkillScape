@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    // Update the dashboard header with the current email
+    const emailDisplay = document.getElementById("user-display-email");
+    const nameDisplay = document.getElementById("user-display-name");
+    if (emailDisplay) emailDisplay.textContent = userEmail;
+
     // Fetch roles for dropdown from Supabase
     const { data: roles } = await supabase.from('roles').select('*');
     if (roles) {
@@ -24,10 +29,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Check if user already has a role saved in profile
-    const { data: profile } = await supabase.from('profiles').select('role_id').eq('email', userEmail).single();
-    if (profile && profile.role_id) {
-        roleSelect.value = profile.role_id;
-        loadSkills(profile.role_id);
+    const { data: profile } = await supabase.from('profiles').select('*').eq('email', userEmail).single();
+    if (profile) {
+        if (nameDisplay && profile.full_name) {
+            nameDisplay.textContent = profile.full_name;
+        } else if (nameDisplay) {
+            nameDisplay.textContent = "Consultant";
+        }
+        
+        if (profile.role_id) {
+            roleSelect.value = profile.role_id;
+            loadSkills(profile.role_id);
+        }
+    } else if (nameDisplay) {
+        nameDisplay.textContent = "New User";
     }
 
     roleSelect.addEventListener("change", async (e) => {
