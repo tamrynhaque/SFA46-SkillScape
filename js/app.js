@@ -40,18 +40,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     let { data: profile } = await supabase.from('users').select('*').eq('email', userEmail).single();
     
     if (profile) {
-        if (nameDisplay) nameDisplay.textContent = profile.email.split('@')[0];
+        if (nameDisplay) nameDisplay.textContent = profile.full_name || profile.email.split('@')[0];
         
         if (profile.role_id) {
             roleSelect.value = profile.role_id;
             loadSkills(profile);
         }
     } else {
-        if (nameDisplay) nameDisplay.textContent = "New User";
+        const userName = localStorage.getItem("userName");
+        if (nameDisplay) nameDisplay.textContent = userName || "New User";
         // Create the user in the database since they don't exist yet
         const newUser = {
             id: generateUUID(),
             email: userEmail,
+            full_name: userName || null,
             role_id: null,
             is_admin: false
         };

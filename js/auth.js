@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
+            const name = document.getElementById("name") ? document.getElementById("name").value : "";
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirm-password").value;
 
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 3. Save to localStorage and redirect
             localStorage.setItem("userEmail", email);
+            if (name) localStorage.setItem("userName", name);
             localStorage.setItem("userRole", "user");
 
             alert("Account created successfully! Redirecting to dashboard.");
