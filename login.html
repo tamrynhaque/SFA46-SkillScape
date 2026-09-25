@@ -42,20 +42,20 @@
     <main>
         <section class="auth-container">
             <h2 style="justify-content: center; border-bottom: none; margin-bottom: 1rem;">Welcome Back</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">Authenticate to access your tech progression matrix.</p>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Log in to access your tech progression matrix.</p>
             
             <form id="login-form">
                 <div class="form-group">
-                    <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Email Identity:</label>
-                    <input type="email" id="email" required placeholder="consultant@ten10.com" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--card-border); padding: 0.8rem; border-radius: 8px; width: 100%; box-sizing: border-box;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Email:</label>
+                    <input type="email" id="email" required autocomplete="username" placeholder="consultant@ten10.com" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--card-border); padding: 0.8rem; border-radius: 8px; width: 100%; box-sizing: border-box;">
                 </div>
                 
                 <div class="form-group">
-                    <label for="password" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Passcode:</label>
+                    <label for="password" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Password:</label>
                     <input type="password" id="password" required placeholder="••••••••" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--card-border); padding: 0.8rem; border-radius: 8px; width: 100%; box-sizing: border-box;">
                 </div>
                 
-                <button type="submit" class="btn-primary btn-block" style="margin-top: 1rem;">Initialize Login</button>
+                <button type="submit" class="btn-primary btn-block" style="margin-top: 1rem;">Login</button>
             </form>
             
             <p class="auth-link">Don't have an account? <a href="register.html">Create an account</a></p>
