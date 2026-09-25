@@ -4,39 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - SkillScape</title>
+    <!-- Innovative Tech Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container {
+            max-width: 500px;
+            margin: 5rem auto;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .auth-link {
+            margin-top: 2rem;
+            color: var(--text-muted);
+        }
+        .auth-link a {
+            color: var(--turquoise-bright);
+            text-decoration: none;
+        }
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body class="auth-body">
-    <div class="auth-container">
+<body>
+    <header>
         <h1>SkillScape</h1>
-        <h2>Create an Account</h2>
-        
-        <form id="register-form">
-            <div class="form-group">
-                <label for="name">Full Name:</label>
-                <input type="text" id="name" required placeholder="John Doe">
-            </div>
+        <nav>
+            <a href="login.html" class="nav-link">Login</a>
+            <a href="register.html" class="nav-link">Register</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="auth-container">
+            <h2 style="justify-content: center; border-bottom: none; margin-bottom: 1rem;">Create an Account</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Initialize your profile to begin tracking skills.</p>
             
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" required placeholder="consultant@ten10.com">
-            </div>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Full Name:</label>
+                    <input type="text" id="name" required placeholder="John Doe" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--card-border); padding: 0.8rem; border-radius: 8px; width: 100%; box-sizing: border-box;">
+                </div>
+                
+                <div class="form-group">
+                    <label for="username" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Username:</label>
+                    <input type="text" id="username" required placeholder="Choose a username" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--card-border); padding: 0.8rem; border-radius: 8px; width: 100%; box-sizing: border-box;">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Password:</label>
+                    <input type="password" id="password" required placeholder="••••••••" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--card-border); padding: 0.8rem; border-radius: 8px; width: 100%; box-sizing: border-box;">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password" style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Confirm Password:</label>
+                    <input type="password" id="confirm-password" required placeholder="••••••••" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid var(--card-border); padding: 0.8rem; border-radius: 8px; width: 100%; box-sizing: border-box;">
+                </div>
+                
+                <button type="submit" class="btn-primary btn-block" style="margin-top: 1rem;">Sign Up</button>
+            </form>
             
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" required placeholder="••••••••">
-            </div>
-
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" id="confirm-password" required placeholder="••••••••">
-            </div>
-            
-            <button type="submit" class="btn-primary">Sign Up</button>
-        </form>
-        
-        <p class="auth-link">Already have an account? <a href="login.html">Login here</a></p>
-    </div>
+            <p class="auth-link">Already have an account? <a href="login.html">Login here</a></p>
+        </section>
+    </main>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/db.js"></script>
