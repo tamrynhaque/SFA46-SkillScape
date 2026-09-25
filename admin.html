@@ -17,16 +17,98 @@
     </header>
     
     <main>
-        <section id="global-heatmap">
-            <h2>Global Skills Heatmap</h2>
-            <div class="learning-path-box">
-                <p>Platform-wide Status Distribution:</p>
-                <ul>
-                    <li>Complete: 124 skills</li>
-                    <li>In Progress: 58 skills</li>
-                    <li>Not Started: 212 skills</li>
-                </ul>
-                <p style="font-size: 0.85rem; color: #7f8c8d;">(This visualizes aggregate skill gap data across the entire organization)</p>
+        <section id="global-heatmap" style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 0; margin-bottom: 2rem;">
+            <!-- Header -->
+            <div style="padding: 1.5rem; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="margin: 0; border: none; padding: 0;">Overall Skills Matrix Heatmap</h2>
+                <div style="display: flex; gap: 1rem; align-items: center; border: 1px solid #ddd; padding: 0.5rem; border-radius: 4px; background: #f8f9fa;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: bold; cursor: pointer; font-size: 0.9rem;"><input type="radio" name="view_mode" checked> All Users</label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;"><input type="radio" name="view_mode"> Filtered View</label>
+                </div>
+            </div>
+            
+            <!-- Filters -->
+            <div style="padding: 1rem 1.5rem; background: #fafafa; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 1rem;">
+                <span style="font-weight: bold; color: #555; font-size: 0.9rem;">Filter by:</span>
+                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: #e9ecef; font-size: 0.9rem;"><option>User (Dropdown)</option></select>
+                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: #e9ecef; font-size: 0.9rem;"><option>Role (Dropdown)</option></select>
+                <select style="padding: 0.25rem 0.5rem; border: 1px solid #ccc; border-radius: 4px; background: #e9ecef; font-size: 0.9rem;"><option>Skill Type (Dropdown)</option></select>
+            </div>
+            
+            <!-- Table and Charts Area -->
+            <div style="padding: 1.5rem; display: flex; gap: 1.5rem;">
+                <!-- Main Table -->
+                <div style="flex: 1; overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: center; border: 2px solid #333;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left; padding: 1rem; border: 1px solid #333; background: #fff; width: 25%;">Skills</th>
+                                <th style="padding: 1rem; border: 1px solid #333; background: #fff;">&#9733; Easy</th>
+                                <th style="padding: 1rem; border: 1px solid #333; background: #fff;">&#9733;&#9733; Medium</th>
+                                <th style="padding: 1rem; border: 1px solid #333; background: #fff;">&#9733;&#9733;&#9733; Hardest</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 1.2rem; color: #333;">
+                            <tr>
+                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Python Programming</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #a5d6a7;">88%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">42%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #ef5350;">15%</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">SQL Queries</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #81c784;">92%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #a5d6a7;">78%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">35%</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Cloud Infrastructure</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #ef5350;">22%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #fff59d;">55%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">40%</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Machine Learning</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">38%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">65%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #fff59d;">50%</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Project Management</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">68%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #66bb6a;">85%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">60%</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; padding: 1rem; border: 1px solid #333; font-weight: 500; font-size: 1rem; background: #fff;">Data Analysis</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #a5d6a7;">75%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #ffcc80;">45%</td>
+                                <td style="padding: 1rem; border: 1px solid #333; background: #dce775;">62%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Color Key -->
+                    <div style="margin-top: 1rem; display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <span style="font-weight: bold;">Color Key:</span>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="display: flex; border: 1px solid #333; height: 15px; width: 200px; border-radius: 4px; overflow: hidden;">
+                                <div style="flex: 1; background: #66bb6a;"></div>
+                                <div style="flex: 1; background: #81c784;"></div>
+                                <div style="flex: 1; background: #a5d6a7;"></div>
+                                <div style="flex: 1; background: #dce775;"></div>
+                                <div style="flex: 1; background: #fff59d;"></div>
+                                <div style="flex: 1; background: #ffcc80;"></div>
+                                <div style="flex: 1; background: #ef5350;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; width: 200px; font-size: 0.8rem; margin-top: 0.2rem;">
+                                <span>High</span>
+                                <span>Medium</span>
+                                <span>Low</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -63,8 +145,168 @@
                 </tbody>
             </table>
             
-            <a href="users.html" class="btn-primary btn-block" style="margin-top: 1rem;">View All Web App Users</a>
+            <a href="users.html" class="btn-primary btn-block" style="margin-top: 1rem;">View Leaderboard Details</a>
+        </section>
+
+        <!-- All Users List -->
+        <section id="all-users">
+            <h2>All Users</h2>
+            <div class="users-grid">
+                <a href="#specific-user-view" class="user-card" onclick="document.getElementById('specific-user-view').style.display='block';">
+                    <h3>Alice Smith</h3>
+                    <p>Java Developer</p>
+                </a>
+                <a href="#specific-user-view" class="user-card" onclick="document.getElementById('specific-user-view').style.display='block';">
+                    <h3>Bob Johnson</h3>
+                    <p>DevOps Engineer</p>
+                </a>
+                <a href="#specific-user-view" class="user-card" onclick="document.getElementById('specific-user-view').style.display='block';">
+                    <h3>Charlie Davis</h3>
+                    <p>Junior Manual Tester</p>
+                </a>
+                <a href="#specific-user-view" class="user-card" onclick="document.getElementById('specific-user-view').style.display='block';">
+                    <h3>John Doe</h3>
+                    <p>Junior Java Developer</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Specific User View -->
+        <section id="specific-user-view" style="display: none; background: transparent; padding: 0; box-shadow: none; margin-top: 2rem;">
+            <div class="dashboard-header" style="background: #e2e8f0; padding: 1rem; border-radius: 8px 8px 0 0; border-bottom: none; margin-bottom: 0;">
+                <h2 style="margin: 0; border: none; padding: 0;">SPECIFIC USER VIEW: John Doe [Java Developer]</h2>
+                <div style="background: white; padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid #ccc; font-size: 0.9rem;">&#128269; Search</div>
+            </div>
+            
+            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-top: none; padding: 1.5rem; border-radius: 0 0 8px 8px;">
+                <div class="specific-user-grid">
+                    <!-- Left Column -->
+                    <div>
+                        <div class="user-panel">
+                            <h3 style="margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: #2c3e50;">CONSULTANT PROFILE & DASHBOARD SUMMARY</h3>
+                            
+                            <div class="user-profile-header">
+                                <div class="user-avatar">&#128100;</div>
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.2rem;">John Doe</h3>
+                                    <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem;">Current Role: Junior Java Developer</p>
+                                    <p style="margin: 0.25rem 0 0; font-weight: bold; font-size: 0.9rem;">Total Skills: 45 / Completed: 15</p>
+                                </div>
+                            </div>
+                            
+                            <div style="border-top: 1px solid #eee; padding-top: 1rem;">
+                                <h4 style="margin: 0 0 1rem; color: #34495e;">JAVA DEVELOPER</h4>
+                                
+                                <div class="role-completion-bar">
+                                    <label>Foundational <span>90%</span></label>
+                                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="role-completion-bar">
+                                    <label>Intermediate <span>65%</span></label>
+                                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 65%;"></div></div>
+                                </div>
+                                <div class="role-completion-bar">
+                                    <label>Expert <span>25%</span></label>
+                                    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 25%;"></div></div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="user-panel">
+                            <h3 style="margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: #2c3e50;">TOP SKILLS TO WORK ON</h3>
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.9rem;">
+                                <thead>
+                                    <tr style="text-align: left; color: #7f8c8d; border-bottom: 1px solid #ddd;">
+                                        <th style="padding: 0.5rem 0;">Importance</th>
+                                        <th style="padding: 0.5rem 0;">Impact</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 0.5rem 0; font-weight: bold;">1. Advanced SQL Joining</td>
+                                        <td style="padding: 0.5rem 0;">High</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.5rem 0; font-weight: bold;">2. Hibernate (Expert)</td>
+                                        <td style="padding: 0.5rem 0;">High</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.5rem 0; font-weight: bold;">3. Spring Boot Security (Intermediate)</td>
+                                        <td style="padding: 0.5rem 0;">Medium</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="margin: 0; font-size: 0.8rem; color: #7f8c8d;">Prioritized by impact/relevance to current and potential roles.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="user-panel">
+                        <h3 style="margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: #2c3e50;">PERSONAL SKILLS HEATMAP [Current Role Skills]</h3>
+                        <table class="heatmap-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th colspan="3">Levels</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>L1 Foundational</th>
+                                    <th>L2 Intermediate</th>
+                                    <th>L3 Expert</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Spring Boot</td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>API Testing</td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Hibernate</td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Advanced SQL</td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Git</td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Python</td>
+                                    <td><span class="icon-competent">&#10004;</span></td>
+                                    <td style="background: #fdf2f2;"><span class="icon-missing">&#10008;</span></td>
+                                    <td style="background: #fffdf2;"><span class="icon-in-progress">&#9881;</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 1.5rem; text-align: right; font-size: 0.9rem;">
+                            <div style="margin-bottom: 0.25rem;"><span class="icon-competent" style="margin-right: 0.5rem;">&#10004;</span> Competent</div>
+                            <div style="margin-bottom: 0.25rem;"><span class="icon-missing" style="margin-right: 0.5rem;">&#10008;</span> Missing</div>
+                            <div><span class="icon-in-progress" style="margin-right: 0.5rem;">&#9881;</span> In Progress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 </body>
 </html>
+
