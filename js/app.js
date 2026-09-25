@@ -1,169 +1,132 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    const roleSelect = document.getElementById("role-select");
-    const skillsSection = document.getElementById("skills-matrix");
-    const skillsContainer = document.getElementById("skills-container");
-    const targetsSection = document.getElementById("smart-targets");
-    const targetsContainer = document.getElementById("targets-container");
+// Consultant dashboard: "Where am I now, and what do I need to do to get to the next level?"
 
-    const username = localStorage.getItem("username");
-    if (!username) {
-        window.location.href = "login.html";
+document.addEventListener("DOMContentLoaded", async () => {
+    const session = requireLogin();
+    if (!session) return;
+    if (session.isAdmin) {
+        // Admins can still use the consultant view; give them a way back.
+        document.querySelector("nav").insertAdjacentHTML("afterbegin", `<a href="admin.html" class="nav-link">Admin</a>`);
+    }
+
+    const pathEl = document.getElementById("learning-path");
+    const skillsEl = document.getElementById("skills-summary");
+    const targetsEl = document.getElementById("targets");
+    const otherRolesEl = document.getElementById("other-roles");
+
+    document.getElementById("user-display-name").textContent = session.name;
+    document.getElementById("user-display-email").textContent = session.email;
+
+    let me, roles, roleSkills, skills, progress, targets;
+    try {
+        [me, roles, roleSkills, skills, progress, targets] = await Promise.all([
+            Store.user(session.id), Store.roles(), Store.roleSkillMap(), Store.allSkills(),
+            Store.progress(session.id), Store.targets(session.id)
+        ]);
+    } catch (err) {
+        pathEl.innerHTML = `<p class="error">Could not load your dashboard: ${escapeHtml(err.message)}</p>`;
         return;
     }
+    if (!me) { Session.clear(); window.location.href = "login.html"; return; }
 
-    // Update the dashboard header
-    const emailDisplay = document.getElementById("user-display-email");
-    const nameDisplay = document.getElementById("user-display-name");
-    if (emailDisplay) emailDisplay.textContent = username;
+    const skillById = Object.fromEntries(skills.map(s => [s.id, s]));
+    const skillsFor = roleId => (roleSkills[roleId] || []).map(id => skillById[id]).filter(Boolean)
+        .sort((a, b) => a.level - b.level || a.name.localeCompare(b.name));
+    const myRole = roles.find(r => r.id === me.role_id);
 
-    // Helper to generate UUIDs
-    function generateUUID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+    // --- Current learning path ---
+    function renderPath() {
+        if (!myRole) {
+            pathEl.innerHTML = `
+                <h3>No role selected yet</h3>
+                <p>Pick the role you're working towards to see your skills matrix.</p>
+                <a href="roles.html" class="btn-primary" style="align-self: flex-start;">Choose a role</a>`;
+            return;
+        }
+        const roleSkillList = skillsFor(myRole.id);
+        const s = summarise(roleSkillList, progress);
+        const nextGap = roleSkillList.find(sk => progress[sk.id] === STATUS.IN_PROGRESS)
+            || roleSkillList.find(sk => progress[sk.id] !== STATUS.COMPLETE);
+        const currentLevel = [1, 2, 3].find(l => s.byLevel[l].complete < s.byLevel[l].total);
+
+        pathEl.innerHTML = `
+            <h3>${escapeHtml(myRole.name)}</h3>
+            <p>${currentLevel ? `Working on <strong>Level ${currentLevel}: ${LEVELS[currentLevel]}</strong>` : `<strong>All levels complete!</strong>`}</p>
+            ${progressBar(s.pct)}
+            <p class="progress-caption mono">${s.pct}% COMPLETE · ${s.complete}/${s.total} SKILLS</p>
+            <div class="level-bars">
+                ${[1, 2, 3].map(l => {
+                    const lv = s.byLevel[l];
+                    const pct = percent(lv.complete, lv.total);
+                    return `<div class="role-completion-bar">
+                        <label>L${l} ${LEVELS[l]} <span>${lv.total ? pct + "%" : "–"}</span></label>
+                        ${progressBar(pct)}
+                    </div>`;
+                }).join("")}
+            </div>
+            ${nextGap ? `
+                <div class="next-up">
+                    <span class="muted">Next up:</span> <strong>${escapeHtml(nextGap.name)}</strong>
+                    <span class="muted">(Level ${nextGap.level})</span>
+                    <button id="next-smart" class="btn-secondary">Generate SMART goal</button>
+                </div>` : ""}
+            <a href="role-detail.html?id=${myRole.id}" class="btn-primary" style="align-self: flex-start; margin-top: 1rem;">Open Skills Matrix</a>`;
+
+        document.getElementById("next-smart")?.addEventListener("click", () => openSmartModal({
+            skill: nextGap, roleName: myRole.name, userId: session.id,
+            onSaved: async () => { targets = await Store.targets(session.id); renderTargets(); }
+        }));
     }
 
-    // Fetch roles for dropdown from Supabase
-    const { data: roles } = await supabase.from('roles').select('*');
-    if (roles) {
-        roleSelect.innerHTML = '<option value="">-- Choose a Role --</option>';
-        roles.forEach(role => {
-            const option = document.createElement('option');
-            option.value = role.id;
-            option.textContent = role.name;
-            roleSelect.appendChild(option);
-        });
+    // --- My skills (complete + in progress) ---
+    function renderSkills() {
+        const complete = skills.filter(s => progress[s.id] === STATUS.COMPLETE);
+        const inProgress = skills.filter(s => progress[s.id] === STATUS.IN_PROGRESS);
+        const tag = s => `<div class="skill-tag">${escapeHtml(s.name)} <span>L${s.level}</span></div>`;
+        skillsEl.innerHTML = `
+            <h3 class="sub-heading">✓ Attained (${complete.length})</h3>
+            <div class="skills-grid">${complete.length ? complete.map(tag).join("") : `<p class="muted">No completed skills yet - mark skills Complete in your matrix.</p>`}</div>
+            <h3 class="sub-heading">⏳ In progress (${inProgress.length})</h3>
+            <div class="skills-grid">${inProgress.length ? inProgress.map(tag).join("") : `<p class="muted">Nothing in progress.</p>`}</div>`;
     }
 
-    // Check if user already has a record in the 'users' table
-    let { data: profile } = await supabase.from('users').select('*').eq('username', username).single();
-    
-    if (profile) {
-        if (nameDisplay) nameDisplay.textContent = profile.full_name || profile.username;
-        
-        if (profile.role_id) {
-            roleSelect.value = profile.role_id;
-            loadSkills(profile);
+    // --- SMART targets ---
+    function renderTargets() {
+        if (targets.length === 0) {
+            targetsEl.innerHTML = `<p class="muted">No SMART targets yet. Open your skills matrix and click <strong>Generate SMART goal</strong> on a skill gap.</p>`;
+            return;
         }
-    } else {
-        const userName = localStorage.getItem("userName");
-        if (nameDisplay) nameDisplay.textContent = userName || "New User";
-        // Create the user in the database since they don't exist yet
-        const newUser = {
-            id: generateUUID(),
-            username: username,
-            full_name: userName || null,
-            role_id: null,
-            is_admin: false,
-            email: username + "@mock.com"
-        };
-        const { data: insertedUser } = await supabase.from('users').insert(newUser).select().single();
-        if (insertedUser) {
-            profile = insertedUser;
-        } else {
-            profile = newUser; // Fallback
-
-        }
+        targetsEl.innerHTML = targets.map(t => {
+            const skill = skillById[t.skill_id];
+            const done = progress[t.skill_id] === STATUS.COMPLETE;
+            return `
+                <div class="target-card${done ? " target-done" : ""}">
+                    <div class="skill-card-head">
+                        <h4>${escapeHtml(skill ? skill.name : "Skill")}</h4>
+                        <span class="status-pill ${done ? "pill-complete" : "pill-in-progress"}">${done ? "Achieved" : "Active"}</span>
+                    </div>
+                    ${renderTargetText(t.target_text)}
+                    <p class="muted small">Set ${formatDate(t.created_at)}</p>
+                </div>`;
+        }).join("");
     }
 
-    roleSelect.addEventListener("change", async (e) => {
-        const roleId = e.target.value;
-        if (roleId && profile) {
-            // Update profile with new role
-            await supabase.from('users').update({ role_id: roleId }).eq('id', profile.id);
-            profile.role_id = roleId;
-            loadSkills(profile);
-        } else {
-            skillsSection.style.display = "none";
-            targetsSection.style.display = "none";
-        }
-    });
-
-    async function loadSkills(currentProfile) {
-        skillsSection.style.display = "block";
-        targetsSection.style.display = "block";
-        skillsContainer.innerHTML = "<p>Loading skills...</p>";
-        targetsContainer.innerHTML = "";
-
-        // Fetch skills via the 'role_skills' join table
-        const { data: roleSkills } = await supabase
-            .from('role_skills')
-            .select('skill_id, skills(id, name, level, resource_url)')
-            .eq('role_id', currentProfile.role_id);
-            
-        const skills = roleSkills ? roleSkills.map(rs => rs.skills) : [];
-        
-        // Fetch user progress from 'user_skills'
-        const { data: progressData } = await supabase.from('user_skills').select('*').eq('user_id', currentProfile.id);
-        const savedProgress = {};
-        if (progressData) {
-            progressData.forEach(p => savedProgress[p.skill_id] = p.status);
-        }
-
-        skillsContainer.innerHTML = "";
-        let allComplete = true;
-
-        if (skills && skills.length > 0) {
-            skills.forEach(skill => {
-                const skillDiv = document.createElement("div");
-                skillDiv.className = "skill-card";
-                
-                const currentStatus = savedProgress[skill.id] || "Not Started";
-                if (currentStatus !== "Complete") allComplete = false;
-                
-                skillDiv.innerHTML = `
-                    <h3>${skill.name} <span class="skill-level">(Level ${skill.level})</span></h3>
-                    <p>Status: 
-                        <select class="status-select" data-id="${skill.id}">
-                            <option value="Not Started" ${currentStatus === "Not Started" ? "selected" : ""}>Not Started</option>
-                            <option value="In Progress" ${currentStatus === "In Progress" ? "selected" : ""}>In Progress</option>
-                            <option value="Complete" ${currentStatus === "Complete" ? "selected" : ""}>Complete</option>
-                        </select>
-                    </p>
-                    <a href="${skill.resource_url}" target="_blank" class="resource-link">Learning Resource</a>
-                `;
-                skillsContainer.appendChild(skillDiv);
-
-                // Generate SMART Target if skill is a "Gap"
-                if (currentStatus !== "Complete") {
-                    const targetDiv = document.createElement("div");
-                    targetDiv.className = "skill-card";
-                    targetDiv.innerHTML = `
-                        <h4>Target: Improve ${skill.name}</h4>
-                        <p><strong>Specific:</strong> Complete the suggested learning resource for ${skill.name}.</p>
-                        <p><strong>Measurable:</strong> Summarize 3 key takeaways or build a small proof-of-concept.</p>
-                        <p><strong>Achievable:</strong> Block out 2 hours this week to focus on this skill.</p>
-                        <p><strong>Relevant:</strong> Essential for closing the gap to reach the next proficiency level.</p>
-                        <p><strong>Time-bound:</strong> Complete by the end of next week.</p>
-                    `;
-                    targetsContainer.appendChild(targetDiv);
-                }
-            });
-
-            if (allComplete) {
-                targetsContainer.innerHTML = "<p>All skills complete! You have no current skill gaps for this role.</p>";
-            }
-        } else {
-            skillsContainer.innerHTML = "<p>No skills found for this role in the database.</p>";
-        }
-
-        // Add event listeners to save progress to DB
-        document.querySelectorAll(".status-select").forEach(select => {
-            select.addEventListener("change", async (e) => {
-                const skillId = e.target.getAttribute("data-id");
-                const newStatus = e.target.value;
-                
-                // Upsert progress in user_skills
-                await supabase.from('user_skills').upsert({
-                    user_id: currentProfile.id,
-                    skill_id: skillId,
-                    status: newStatus
-                }, { onConflict: 'user_id, skill_id' });
-                
-                // Reload to update targets dynamically
-                loadSkills(currentProfile);
-            });
-        });
+    // --- Other roles (completion if you switched) ---
+    function renderOtherRoles() {
+        const others = roles.filter(r => r.id !== me.role_id && (roleSkills[r.id] || []).length);
+        otherRolesEl.innerHTML = others.map(r => {
+            const s = summarise(skillsFor(r.id), progress);
+            return `
+                <a class="role-card" href="role-detail.html?id=${r.id}">
+                    <h3>${escapeHtml(r.name)}</h3>
+                    <p class="role-meta">Completion: ${s.pct}% (${s.complete}/${s.total} complete)</p>
+                    ${progressBar(s.pct)}
+                    <span class="btn-secondary" style="margin-top: 1rem;">Analyse gaps</span>
+                </a>`;
+        }).join("") || `<p class="muted">No other roles available.</p>`;
     }
+
+    renderPath();
+    renderSkills();
+    renderTargets();
+    renderOtherRoles();
 });

@@ -8,59 +8,35 @@
 </head>
 <body>
     <header>
-        <h1>SkillScape <span style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Admin</span></h1>
+        <h1>SkillScape <span class="admin-tag">Admin</span></h1>
         <nav>
             <a href="admin.html" class="nav-link">Dashboard</a>
             <a href="users.html" class="nav-link">All Users</a>
+            <a href="index.html" class="nav-link">Consultant View</a>
             <a href="login.html" class="nav-link">Logout</a>
         </nav>
     </header>
-    
+
     <main>
-        <h2>All Web App Users</h2>
-        <p>A complete list of registered consultants in the system.</p>
-        
-        <table class="leaderboard-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role Path</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>USR-001</td>
-                    <td>Alice Smith</td>
-                    <td>alice.smith@ten10.com</td>
-                    <td>Java Developer</td>
-                    <td><button style="padding: 0.3rem 0.6rem; cursor:pointer;">View Profile</button></td>
-                </tr>
-                <tr>
-                    <td>USR-002</td>
-                    <td>Bob Johnson</td>
-                    <td>bob.johnson@ten10.com</td>
-                    <td>DevOps Engineer</td>
-                    <td><button style="padding: 0.3rem 0.6rem; cursor:pointer;">View Profile</button></td>
-                </tr>
-                <tr>
-                    <td>USR-003</td>
-                    <td>Charlie Davis</td>
-                    <td>charlie.davis@ten10.com</td>
-                    <td>Junior Manual Tester</td>
-                    <td><button style="padding: 0.3rem 0.6rem; cursor:pointer;">View Profile</button></td>
-                </tr>
-                <tr>
-                    <td>USR-004</td>
-                    <td>Jane Consultant</td>
-                    <td>consultant@ten10.com</td>
-                    <td>Java Developer</td>
-                    <td><button style="padding: 0.3rem 0.6rem; cursor:pointer;">View Profile</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <section>
+            <div class="section-head">
+                <h2>All Registered Users</h2>
+                <input id="user-search" class="search-input" type="search" placeholder="Search name, email or role...">
+            </div>
+            <div class="table-wrap">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr><th>Name</th><th>Email</th><th>Role Path</th><th>Progress</th><th>Targets</th><th></th></tr>
+                    </thead>
+                    <tbody id="users-body"><tr><td colspan="6" class="muted">Loading...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/db.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/users.js"></script>
 </body>
 </html>

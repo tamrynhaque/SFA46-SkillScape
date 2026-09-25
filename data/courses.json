@@ -1,0 +1,40 @@
+{
+  "source": "SkillScape Mock Learning API v1",
+  "description": "Mocked third-party course catalogue (stands in for LinkedIn Learning / YouTube / docs APIs). Each course lists the skill ids it maps to plus keywords used as a fallback match.",
+  "courses": [
+    { "id": "c01", "title": "Pro Git (free online book)", "provider": "Documentation", "url": "https://git-scm.com/book/en/v2", "duration_hours": 6, "level": 1, "skill_ids": [1], "keywords": ["git", "version control"] },
+    { "id": "c02", "title": "Git & GitHub Crash Course", "provider": "YouTube", "url": "https://www.youtube.com/results?search_query=git+and+github+crash+course", "duration_hours": 2, "level": 1, "skill_ids": [1], "keywords": ["git", "github"] },
+    { "id": "c03", "title": "Learning Git and GitHub", "provider": "LinkedIn Learning", "url": "https://www.linkedin.com/learning/search?keywords=learning%20git%20and%20github", "duration_hours": 3, "level": 1, "skill_ids": [1], "keywords": ["git"] },
+
+    { "id": "c04", "title": "The Scrum Guide", "provider": "Documentation", "url": "https://scrumguides.org/scrum-guide.html", "duration_hours": 2, "level": 1, "skill_ids": [2], "keywords": ["agile", "scrum"] },
+    { "id": "c05", "title": "Agile Foundations", "provider": "LinkedIn Learning", "url": "https://www.linkedin.com/learning/search?keywords=agile%20foundations", "duration_hours": 3, "level": 1, "skill_ids": [2], "keywords": ["agile", "scrum", "kanban"] },
+
+    { "id": "c06", "title": "Manual Testing Tutorial", "provider": "Documentation", "url": "https://www.guru99.com/manual-testing.html", "duration_hours": 4, "level": 1, "skill_ids": [3], "keywords": ["manual test", "testing", "test execution"] },
+    { "id": "c07", "title": "Software Testing Full Course", "provider": "YouTube", "url": "https://www.youtube.com/results?search_query=manual+software+testing+full+course", "duration_hours": 5, "level": 1, "skill_ids": [3], "keywords": ["testing", "qa"] },
+
+    { "id": "c08", "title": "SQLBolt Interactive Lessons", "provider": "Documentation", "url": "https://sqlbolt.com/", "duration_hours": 4, "level": 2, "skill_ids": [4], "keywords": ["sql", "database", "query"] },
+    { "id": "c09", "title": "W3Schools SQL Tutorial", "provider": "Documentation", "url": "https://www.w3schools.com/sql/", "duration_hours": 5, "level": 2, "skill_ids": [4], "keywords": ["sql"] },
+    { "id": "c10", "title": "SQL Essential Training", "provider": "LinkedIn Learning", "url": "https://www.linkedin.com/learning/search?keywords=sql%20essential%20training", "duration_hours": 4, "level": 2, "skill_ids": [4], "keywords": ["sql"] },
+
+    { "id": "c11", "title": "GitHub Actions Documentation", "provider": "Documentation", "url": "https://docs.github.com/en/actions", "duration_hours": 5, "level": 2, "skill_ids": [5], "keywords": ["ci/cd", "pipeline", "github actions"] },
+    { "id": "c12", "title": "Jenkins Tutorials", "provider": "Documentation", "url": "https://www.jenkins.io/doc/tutorials/", "duration_hours": 6, "level": 2, "skill_ids": [5], "keywords": ["jenkins", "ci/cd"] },
+    { "id": "c13", "title": "CI/CD Pipeline Explained", "provider": "YouTube", "url": "https://www.youtube.com/results?search_query=ci+cd+pipeline+tutorial", "duration_hours": 2, "level": 2, "skill_ids": [5], "keywords": ["ci/cd", "devops"] },
+
+    { "id": "c14", "title": "Business Analysis Foundations", "provider": "LinkedIn Learning", "url": "https://www.linkedin.com/learning/search?keywords=business%20analysis%20foundations", "duration_hours": 3, "level": 2, "skill_ids": [6], "keywords": ["requirements", "business analysis"] },
+    { "id": "c15", "title": "Requirements Gathering Techniques", "provider": "YouTube", "url": "https://www.youtube.com/results?search_query=requirements+gathering+techniques+business+analyst", "duration_hours": 2, "level": 2, "skill_ids": [6], "keywords": ["requirements", "user stories"] },
+
+    { "id": "c16", "title": "Building a RESTful Web Service (Spring Guide)", "provider": "Documentation", "url": "https://spring.io/guides/gs/rest-service", "duration_hours": 2, "level": 3, "skill_ids": [7], "keywords": ["spring", "java", "rest"] },
+    { "id": "c17", "title": "Spring Boot Full Course", "provider": "YouTube", "url": "https://www.youtube.com/results?search_query=spring+boot+full+course", "duration_hours": 8, "level": 3, "skill_ids": [7], "keywords": ["spring boot", "java"] },
+    { "id": "c18", "title": "Spring Boot Essential Training", "provider": "LinkedIn Learning", "url": "https://www.linkedin.com/learning/search?keywords=spring%20boot", "duration_hours": 5, "level": 3, "skill_ids": [7], "keywords": ["spring boot", "java"] },
+
+    { "id": "c19", "title": "Terraform Tutorials", "provider": "Documentation", "url": "https://developer.hashicorp.com/terraform/tutorials", "duration_hours": 8, "level": 3, "skill_ids": [8], "keywords": ["terraform", "infrastructure as code", "iac", "cloud"] },
+    { "id": "c20", "title": "Terraform Course for Beginners", "provider": "YouTube", "url": "https://www.youtube.com/results?search_query=terraform+course+for+beginners", "duration_hours": 3, "level": 3, "skill_ids": [8], "keywords": ["terraform"] },
+
+    { "id": "c21", "title": "Managing Project Stakeholders", "provider": "LinkedIn Learning", "url": "https://www.linkedin.com/learning/search?keywords=managing%20project%20stakeholders", "duration_hours": 2, "level": 3, "skill_ids": [9], "keywords": ["stakeholder", "communication"] },
+    { "id": "c22", "title": "Stakeholder Management Explained", "provider": "YouTube", "url": "https://www.youtube.com/results?search_query=stakeholder+management+explained", "duration_hours": 1, "level": 3, "skill_ids": [9], "keywords": ["stakeholder"] },
+
+    { "id": "c23", "title": "Cypress Documentation", "provider": "Documentation", "url": "https://docs.cypress.io/", "duration_hours": 6, "level": 3, "skill_ids": [10], "keywords": ["cypress", "test automation", "automation"] },
+    { "id": "c24", "title": "Selenium WebDriver Documentation", "provider": "Documentation", "url": "https://www.selenium.dev/documentation/", "duration_hours": 6, "level": 3, "skill_ids": [10], "keywords": ["selenium", "test automation"] },
+    { "id": "c25", "title": "Test Automation Foundations", "provider": "LinkedIn Learning", "url": "https://www.linkedin.com/learning/search?keywords=test%20automation%20foundations", "duration_hours": 2, "level": 3, "skill_ids": [10], "keywords": ["automation", "testing"] }
+  ]
+}
