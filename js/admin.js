@@ -5,16 +5,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     heatmapContainer.innerHTML = "<p>Loading data...</p>";
     usersContainer.innerHTML = "<p>Loading data...</p>";
 
-    // Fetch all profiles
-    const { data: profiles } = await supabase.from('profiles').select('*');
+    // Fetch all profiles from the users table (app.js uses 'users')
+    const { data: profiles } = await supabase.from('users').select('*');
     
     // Fetch all progress with skill details joined
     const { data: allProgress } = await supabase
-        .from('user_progress')
+        .from('user_skills')
         .select(`
-            user_email, 
+            user_id, 
             status,
-            skills (skill_name)
+            skills (name)
         `);
 
     // Global Heatmap
@@ -52,12 +52,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <ul>
             `;
             
-            const userSkills = allProgress ? allProgress.filter(p => p.user_email === profile.email) : [];
+            const userSkills = allProgress ? allProgress.filter(p => p.user_id === profile.id) : [];
             if (userSkills.length === 0) {
                 userHTML += `<li>No progress recorded.</li>`;
             } else {
                 userSkills.forEach(us => {
-                    const skillName = (us.skills && us.skills.skill_name) ? us.skills.skill_name : "Unknown Skill";
+                    const skillName = (us.skills && us.skills.name) ? us.skills.name : "Unknown Skill";
                     userHTML += `<li>${skillName}: <strong>${us.status}</strong></li>`;
                 });
             }

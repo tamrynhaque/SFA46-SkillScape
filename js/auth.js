@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
             const email = document.getElementById("email").value;
+            const name = document.getElementById("name") ? document.getElementById("name").value : "";
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirm-password").value;
             
@@ -51,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // Mock a successful registration
             localStorage.setItem("userEmail", email);
+            if (name) localStorage.setItem("userName", name);
             localStorage.setItem("userRole", "user");
             
             alert("Account created successfully! Redirecting to dashboard.");
