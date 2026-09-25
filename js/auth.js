@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
+        loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -32,7 +32,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Redirect based on their role
                 window.location.href = account.redirect;
             } else {
-                alert("Invalid email or password. Please try again.");
+                // Check if user exists in the Supabase 'users' table
+                const { data: user } = await supabase
+                    .from('users')
+                    .select('*')
+                    .eq('email', email)
+                    .single();
+
+                if (user) {
+                    // Login successful via Database (accepting any password for hackathon)
+                    localStorage.setItem("userEmail", email);
+                    localStorage.setItem("userRole", user.is_admin ? "admin" : "user");
+                    
+                    if (user.full_name) localStorage.setItem("userName", user.full_name);
+                    
+                    window.location.href = user.is_admin ? "admin.html" : "index.html";
+                } else {
+                    alert("Invalid email. Please register an account first.");
+                }
             }
         });
     }
